@@ -16,38 +16,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: <YOUR-DEPLOYMENT-NAME>
+  name: wordpress
+  namespace: database
 spec:
   selector:
     matchLabels:
-      app: <YOUR-APPLICATION-NAME>
+      app: wordpress
   template:
     metadata:
       labels:
-        app: <YOUR-APPLICATION-NAME>
+        app: wordpress
+        namespace: database
     spec:
-      serviceAccountName: <YOUR-KSA-NAME>
+      serviceAccountName: sql
       # [END cloud_sql_proxy_k8s_sa]
       # [START cloud_sql_proxy_k8s_secrets]
       containers:
-      - name: <YOUR-APPLICATION-NAME>
+      - name: wordpress
+        image: wordpress
         # ... other container configuration
         env:
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: <YOUR-DB-SECRET>
-              key: username
-        - name: DB_PASS
-          valueFrom:
-            secretKeyRef:
-              name: <YOUR-DB-SECRET>
-              key: password
-        - name: DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: <YOUR-DB-SECRET>
-              key: database
+        - name: WORDPRESS_DB_HOST
+          value: 127.0.0.1:3306
+        - name: WORDPRESS_DB_USER
+          value: cloudsql
+        - name: WORDPRESS_DB_PASSWORD
+          value: ""
+        - name: WORDPRESS_DB
+          value: wordpress
       # [END cloud_sql_proxy_k8s_secrets]
       # [START cloud_sql_proxy_k8s_container]
       - name: cloud-sql-proxy
@@ -63,8 +59,8 @@ spec:
           - "--structured-logs"
 
           # Replace DB_PORT with the port the proxy should listen on
-          - "--port=<DB_PORT>"
-          - "<INSTANCE_CONNECTION_NAME>"
+          - "--port=3306"
+          - "docker-396214:us-central1:saryn"
         
         securityContext:
           # The default Cloud SQL Auth Proxy image runs as the
