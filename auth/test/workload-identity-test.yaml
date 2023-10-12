@@ -8,6 +8,10 @@ spec:
   - image: google/cloud-sdk:slim
     name: workload-identity-test
     command: ["sleep","infinity"]
+    resources: 
+      limits:
+        memory: "1Gi"
+        cpu: "2"
   serviceAccountName: sql
   nodeSelector:
     iam.gke.io/gke-metadata-server-enabled: "true"

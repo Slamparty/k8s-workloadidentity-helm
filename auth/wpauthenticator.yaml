@@ -24,6 +24,10 @@ spec:
           value: ""
         - name: WORDPRESS_DB
           value: wordpress
+        resources: 
+          limits:
+            memory: 1Gi
+            cpu: "2"
       - name: cloud-sql-proxy
         image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.1.0
         args:
@@ -32,3 +36,7 @@ spec:
           - "docker-396214:us-central1:saryn"
         securityContext:
           runAsNonRoot: true
+        resources: 
+          limits:
+            memory: 1Gi
+            cpu: "2"
