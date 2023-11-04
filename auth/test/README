@@ -1,0 +1,5 @@
+Test Workload Identity on GKE cluster
+
+0. configure the service account and the name space
+1. apply the yaml file to test
+2. then the "test" file helps 
