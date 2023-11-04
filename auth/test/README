@@ -2,4 +2,6 @@ Test Workload Identity on GKE cluster
 
 0. configure the service account and the namespace
 1. apply the yaml file to test
-2. then the "test" file helps 
+2. open the pod ("go inside the pod")
+3. run the chmod file from the "test"
+4. If the service accounts are correctly configured, the IAM service account email address is listed as the active (and only) identity. This demonstrates that by default, the Pod acts as the IAM service account's authority when calling Google Cloud APIs.
