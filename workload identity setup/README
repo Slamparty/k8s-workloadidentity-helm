@@ -1,0 +1,3 @@
+# Workload identity - Set up Google workload identity for pods 
+# use with kubernetes service account 
+[![gcloud documentation]](https://docs.google.com/document/d/1pUSrzv9ByfZ0eJCcLKcMBot1tNLmAjxdT8FA1bDFFJE/edit#heading=h.pjh2xx1aej6)
